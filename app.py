@@ -192,10 +192,10 @@ class ColumnMap:
         df, df['float'] = ColumnMap.branch_coefficient(df, indicator, generation, gender) 
         
         view = pdk.ViewState(
-            longitude=139.6017,
-            latitude=35.5895,
-            zoom=8,
-            pitch=40,
+            longitude=134.9017,
+            latitude=35.9895,
+            zoom= 5,
+            pitch= 50,
         )
         
         df, df['color'] = ColumnMap.branch_color(df, indicator, generation, gender)
