@@ -149,7 +149,7 @@ class ColumnMap:
                 return lis[3]
             
             elif value <= 4 * step:
-                return lis[4] # 青
+                return lis[4] # 
             
             elif value <= 5 * step:
                 return lis[5] # 
@@ -164,7 +164,7 @@ class ColumnMap:
                 return lis[8] # 
             
             else:
-                return lis[9] # 赤
+                return lis[9] # 
         
         # 人口の総数を取得
         if indicator == '人口':
@@ -174,11 +174,6 @@ class ColumnMap:
         
         df['color'] = df['rank'].apply(lambda x: rank_based_color_scale(x, df, indicator, generation, gender))
         # カラーコードのリストと比較するために、リストをタプルに変換
-        df['color'] = df['color'].apply(tuple)
-        count_cyan = (df['color'] == (0, 0, 129)).sum()
-        st.write(count_cyan)
-        count_cyan = (df['color'] == (255, 0, 0)).sum()
-        st.write(count_cyan)
         
 
         return df, df['color']
@@ -250,13 +245,22 @@ class ColumnMap:
         return df
         
     def main():
-        ("東京都の合計特殊出生率・財政力指数・平均所得")
+        st.title("市区町村別の人口・合計特殊出生率・財政力指数・平均所得")
         
         df = ColumnMap.load_data()
 
         ColumnMap.drawing(df)
 
         with st.expander("参照データ"):
+            dic = {
+            "統計名":"国勢調査 令和２年国勢調査 人口等基本集計　（主な内容：男女・年齢・配偶関係，世帯の構成，住居の状態，母子・父子世帯，国籍など）",
+            "表番号":"2-7-1", 	
+            "表題":"男女，年齢（5歳階級），国籍総数か日本人別人口－全国，都道府県，市区町村（2000年（平成12年）市区町村含む）",
+            "URL":'https://www.e-stat.go.jp'
+            }
+            df_info = pd.DataFrame(dic, index=[""]).T
+            st.table(df_info)
+            
             dic = {
                 "人口動態統計特殊報告": '平成30年～令和４年人口動態保健所・市区町村別統計の概況',
                 "年": "2020年（令和2年）",
